@@ -9,9 +9,7 @@ class Node{
     }
 }
 
-public class LinkedList1{
-
-    // create a node 
+public class Palindrome{
     static Node createnode(int data){
         Node newnode = new Node(data);
         return newnode;
@@ -54,39 +52,6 @@ public class LinkedList1{
             
         }
         System.out.println();
-    } 
-
-    //search the element in linked list - linear search 
-    static boolean search(Node head,int key){
-        Node temp = head;
-
-        while(temp.next != null){
-            if(temp.data == key){
-                return true;
-            }
-            temp = temp.next;
-        }
-        return false;
-    }
-
-    // delete a node 
-
-    static Node delete(Node head,int value){
-        Node temp = head;
-        Node prev = null;
-
-        if(temp.data == value){
-            head = temp.next;
-            return head;
-        }
-
-        while(temp.data != value){
-            prev = temp;
-            temp = temp.next;
-        }
-
-        prev.next = temp.next;
-        return head;
     }
 
     // reverse the link
@@ -104,57 +69,35 @@ public class LinkedList1{
         return prev;
     }
 
+    static boolean isPalindrome(Node head){
+        // find the mid point 
 
-    // form loop 
-    static Node createloop(Node head){
-        Node temp = head;
-
-        while(temp.next != null){
-            temp = temp.next;
-        }
-        temp.next = head.next;
-
-        return head;
-    }
-
-    // remove loop
-    static boolean loopdetect(Node head){
         Node slow = head;
         Node fast = head;
-
-        while(fast != null && fast.next != null ){
-            slow = slow.next;
-            fast = fast.next.next;
-            if(fast == slow){
-                return true;
-            }
-        }
-        return false;
-
-    }
-
-    // mid point finding 
-
-    static void midpoint(Node head){
-        Node slow = head;
-        Node fast = head;
-
         while(fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        System.out.println("Mid element : "+slow.data);
+
+        Node head2 = slow.next;
+        slow.next = null;
+
+
+        // System.out.println("Before reverse ");
+        // display(head2);
+        // System.out.println("After reverse ");
+        head2 = reverselist(head2);
+        // display(head2);
+        while(head != null && head2 !=null){
+            if(head.data != head2.data){
+                return false; // not palindrome
+            }
+            head = head.next;
+            head2 = head2.next;
+        }
+        return true;
     }
-
-
-
-
-
-
-
-
-
 
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
@@ -178,31 +121,11 @@ public class LinkedList1{
         // find the size of the list 
         System.out.println("Size : "+sizeofll(head));
 
-        // search the element 
-
-        // System.out.print("Enter the element to search : ");
-        // int key = input.nextInt();
-        // if(search(head,key)){
-        //     System.out.println("Element is present ");
-        // }
-        // else{
-        //     System.out.println("Element is not present");
-        // }
-
-        // delete the node 
-
-        // System.out.print("Enter the element to delete : ");
-        // int deletenode = input.nextInt();
-        // head = delete(head,deletenode);
-        // display(head);
-        // System.out.println(sizeofll(head));
-
-        // // reverse the list 
-
-        // head = reverselist(head);
-        // display(head);
-
-        // midpoint(head);
-
+        if(isPalindrome(head)){
+            System.out.println("it is palindrome");
+        }
+        else{
+            System.out.println("It is not palindrome");
+        }
     }
 }

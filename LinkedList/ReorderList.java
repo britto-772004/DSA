@@ -9,8 +9,7 @@ class Node{
     }
 }
 
-public class LinkedList1{
-
+public class ReorderList{
     // create a node 
     static Node createnode(int data){
         Node newnode = new Node(data);
@@ -43,7 +42,6 @@ public class LinkedList1{
         return count;
     }
 
-
     // display the linked list
     static void display(Node head){
         Node temp = head;
@@ -54,39 +52,6 @@ public class LinkedList1{
             
         }
         System.out.println();
-    } 
-
-    //search the element in linked list - linear search 
-    static boolean search(Node head,int key){
-        Node temp = head;
-
-        while(temp.next != null){
-            if(temp.data == key){
-                return true;
-            }
-            temp = temp.next;
-        }
-        return false;
-    }
-
-    // delete a node 
-
-    static Node delete(Node head,int value){
-        Node temp = head;
-        Node prev = null;
-
-        if(temp.data == value){
-            head = temp.next;
-            return head;
-        }
-
-        while(temp.data != value){
-            prev = temp;
-            temp = temp.next;
-        }
-
-        prev.next = temp.next;
-        return head;
     }
 
     // reverse the link
@@ -104,38 +69,9 @@ public class LinkedList1{
         return prev;
     }
 
-
-    // form loop 
-    static Node createloop(Node head){
-        Node temp = head;
-
-        while(temp.next != null){
-            temp = temp.next;
-        }
-        temp.next = head.next;
-
-        return head;
-    }
-
-    // remove loop
-    static boolean loopdetect(Node head){
-        Node slow = head;
-        Node fast = head;
-
-        while(fast != null && fast.next != null ){
-            slow = slow.next;
-            fast = fast.next.next;
-            if(fast == slow){
-                return true;
-            }
-        }
-        return false;
-
-    }
-
-    // mid point finding 
-
-    static void midpoint(Node head){
+    // reorder 
+    static Node reorder(Node head){
+        // finding the midpoint 
         Node slow = head;
         Node fast = head;
 
@@ -144,17 +80,26 @@ public class LinkedList1{
             fast = fast.next.next;
         }
 
-        System.out.println("Mid element : "+slow.data);
+        // split into two linked list 
+        Node head2 = slow.next;
+        slow.next = null;
+
+        head2 = reverselist(head2);
+
+        Node newnode = null;
+        while(head != null){
+            newnode = insertion_at_end(newnode,head.data);
+            if(head2 != null){
+                newnode = insertion_at_end(newnode,head2.data);
+                head2 = head2.next;
+            }
+            
+            head = head.next;
+            
+        }
+
+        return newnode;
     }
-
-
-
-
-
-
-
-
-
 
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
@@ -175,34 +120,14 @@ public class LinkedList1{
             
         }
         display(head);
+
         // find the size of the list 
         System.out.println("Size : "+sizeofll(head));
 
-        // search the element 
+        Node newnode = reorder(head);
+        System.out.println("After reorder ");
+        display(newnode);
 
-        // System.out.print("Enter the element to search : ");
-        // int key = input.nextInt();
-        // if(search(head,key)){
-        //     System.out.println("Element is present ");
-        // }
-        // else{
-        //     System.out.println("Element is not present");
-        // }
-
-        // delete the node 
-
-        // System.out.print("Enter the element to delete : ");
-        // int deletenode = input.nextInt();
-        // head = delete(head,deletenode);
-        // display(head);
-        // System.out.println(sizeofll(head));
-
-        // // reverse the list 
-
-        // head = reverselist(head);
-        // display(head);
-
-        // midpoint(head);
 
     }
 }
