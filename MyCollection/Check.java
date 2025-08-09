@@ -1,22 +1,18 @@
 public class Check{
     public static void main(String[] args){
-        MyLinkedList list = new MyLinkedList();
-        list.insert(1);
-        list.insert(2);
-        list.insert(3);
-        list.display();
-        System.out.println("count : "+list.size());
-        System.out.println("search : "+list.search(3));
-        list.delete(3);
-        list.display();
-        list.insert(2);
-        list.insert(1);
-        // list.reverse();
-        list.display();
-        // list.formloop();
-        System.out.println("Palindrome : "+list.isPalindrome());
-        list.display();
-        System.out.println("Palindrome : "+list.isPalindrome());
-        // System.out.println("Loop detection : "+list.detectloop());
+        MyStack<Integer> stack = new MyStack<>();
+
+        stack.insert(1);
+        stack.insert(2);
+        stack.display();
+        stack.pop();
+        stack.display();
+        System.out.println("peek : "+stack.peek());
+        stack.pop();
+        System.out.println("Isempty : "+stack.isEmpty());
+
+        MyQueue<Integer> queue = new MyQueue<>();
+        queue.enqueue(1);
+        queue.display();
     }
 }
